@@ -2,6 +2,7 @@ const {describe, it} = global;
 import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import Navigation from '../navigation';
+import React from 'react';
 
 describe('core.components.navigation', () => {
   it('should contain a link to home', () => {

@@ -2,6 +2,7 @@ const {describe, it} = global;
 import {expect} from 'chai';
 import {shallow} from 'enzyme';
 import CommentList from '../comment_list';
+import React from 'react';
 
 describe('comments.components.comment_list', () => {
   const comments = [
@@ -12,12 +13,12 @@ describe('comments.components.comment_list', () => {
   ];
 
   it('should list given number of items', () => {
-    const el = shallow(<CommentList comments={comments}/>);
+    const el = shallow(<CommentList comments={comments} />);
     expect(el.find('.comment').length).to.be.equal(comments.length);
   });
 
   it('should list comment author for each item', () => {
-    const el = shallow(<CommentList comments={comments}/>);
+    const el = shallow(<CommentList comments={comments} />);
     const divs = el.find('.comment');
     divs.forEach((div, index) => {
       const author = div.find('b').first().text();
@@ -26,7 +27,7 @@ describe('comments.components.comment_list', () => {
   });
 
   it('should list comment text for each item', () => {
-    const el = shallow(<CommentList comments={comments}/>);
+    const el = shallow(<CommentList comments={comments} />);
     const divs = el.find('.comment');
     divs.forEach((div, index) => {
       const text = div.text();
@@ -35,7 +36,7 @@ describe('comments.components.comment_list', () => {
   });
 
   it('should list saving status for each item', () => {
-    const el = shallow(<CommentList comments={comments}/>);
+    const el = shallow(<CommentList comments={comments} />);
     const divs = el.find('.comment');
     divs.forEach((div, index) => {
       const text = div.text();

@@ -10,9 +10,13 @@ const Post = ({post}) => (
     </p>
     <div>
       <h4>Comments</h4>
-      <CommentList postId={post._id}/>
+      <CommentList postId={post._id} />
     </div>
   </div>
 );
+
+Post.propTypes = {
+  post: React.PropTypes.object.isRequired
+};
 
 export default Post;

@@ -22,7 +22,7 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'posts.single',
     action({postId}) {
       mount(MainLayoutCtx, {
-        content: () => (<Post postId={postId}/>)
+        content: () => (<Post postId={postId} />)
       });
     }
   });
@@ -31,7 +31,7 @@ export default function (injectDeps, {FlowRouter}) {
     name: 'newpost',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<NewPost/>)
+        content: () => (<NewPost />)
       });
     }
   });
