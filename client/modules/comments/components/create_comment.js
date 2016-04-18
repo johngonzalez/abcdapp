@@ -24,7 +24,7 @@ class CreateComment extends React.Component {
 
         </textarea>
         <br />
-        <button onClick={this._create}>Add Comment</button>
+        <button onClick={this._create.bind(this)}>Add Comment</button>
       </div>
     );
   }
