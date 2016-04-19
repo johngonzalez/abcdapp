@@ -1,4 +1,5 @@
 import React from 'react';
+import {Col, Panel, FormControl, FormGroup, Button} from 'react-bootstrap';
 
 class NewUser extends React.Component {
   createUser(e) {
@@ -13,15 +14,26 @@ class NewUser extends React.Component {
   render() {
     const {error} = this.props;
     return (
-			<div>
-				<h1>Register</h1>
-				{error ? <p style={{color: 'red'}}>{error}</p> : null}
-				<form>
-					<input ref="email" type="email" placeholder="Email" />
-					<input ref="password" type="password" placeholder="Password" />
-					<button onClick={this.createUser.bind(this)} type="submit">Sign Up</button>
-				</form>
-			</div>
+			<Col xs={12} sm={6} smOffset={3}>
+        <Panel>
+          <h1>Register</h1>
+          {error ? <p style={{color: 'red'}}>{error}</p> : null}
+          <form>
+            <FormGroup>
+              <FormControl ref="email" type="email" placeholder="Email" />
+            </FormGroup>
+            <FormGroup>
+              <FormControl ref="password" type="password" placeholder="Password" />
+            </FormGroup>
+            <Button
+              bsStyle="default"
+              onClick={this.createUser.bind(this)}
+              type="submit"
+            > Entrar
+            </Button>
+          </form>
+        </Panel>
+      </Col>
 		);
   }
 }

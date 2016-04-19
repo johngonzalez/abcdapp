@@ -1,21 +1,17 @@
 import React from 'react';
+import {Grid, Row, PageHeader} from 'react-bootstrap';
 // import Navigation from './navigation';
 
 const Layout = ({content = () => null }) => (
-  <div>
-    <header>
-    <h1>abcdapp</h1>
-    {/* <Navigation /> */}
-    </header>
-
-    <div>
-    {content()}
-    </div>
-
-    <footer>
-    <small>abcdapp</small>
-    </footer>
-  </div>
+  <Grid>
+      <PageHeader>
+        abcdapp
+      {/* <Navigation /> */}
+    </PageHeader>
+    <Row>
+      {content()}
+    </Row>
+  </Grid>
 );
 
 Layout.propTypes = {
