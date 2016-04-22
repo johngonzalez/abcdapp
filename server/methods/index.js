@@ -1,5 +1,5 @@
-// import posts from './posts';
+import responses from './responses';
 
-// export default function () {
-//   posts();
-// }
+export default function () {
+  responses();
+}

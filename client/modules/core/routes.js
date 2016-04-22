@@ -3,6 +3,7 @@ import {mount} from 'react-mounter';
 import NewUser from '../users/containers/NewUser.js';
 import Login from '../users/containers/Login.js';
 import MainLayout from './components/main_layout.js';
+import Session from '../questions/containers/session';
 
 
 export default function (injectDeps, {FlowRouter, Meteor}) {
@@ -40,6 +41,16 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
     action() {
       Meteor.logout();
       FlowRouter.go('/');
+    }
+  });
+
+  // Response Routes
+  FlowRouter.route('/question', {
+    name: 'sesssion.show',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<Session />)
+      });
     }
   });
 }

@@ -1,5 +1,7 @@
-// import posts from './posts';
+import responses from './responses';
+import questions from './questions';
 
-// export default function () {
-//   posts();
-// }
+export default function () {
+  responses();
+  questions();
+}
