@@ -1,23 +1,34 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Col, Panel, FormControl, FormGroup, Button} from 'react-bootstrap';
 
 class Login extends React.Component {
+  static propTypes() {
+    return {
+      loginUser: this.propTypes.func,
+      error: this.propTypes.string
+    };
+  }
+  constructor(props) {
+    super(props);
+    this.login = this.login.bind(this);
+    this.loginUser = props.loginUser;
+    this.error = props.error;
+  }
   login(e) {
     e.preventDefault();
-    const {loginUser} = this.props;
     const {email, password} = this.refs;
-    loginUser(email.value, password.value);
-    email.value = '';
-    password.value = '';
+    const find = ReactDOM.findDOMNode;
+    this.loginUser(find(email).value, find(password).value);
+    find(email).value = '';
+    find(password).value = '';
   }
-
   render() {
-    const {error} = this.props;
     return (
 			<Col xs={12} sm={6} smOffset={3}>
         <Panel>
           <h1>Entra</h1>
-          {error ? <p style={{color: 'red'}}>{error}</p> : null}
+          {this.error ? <p style={{color: 'red'}}>{this.error}</p> : null}
           <form>
             <FormGroup>
               <FormControl ref="email" type="email" placeholder="Email" />
@@ -27,7 +38,7 @@ class Login extends React.Component {
             </FormGroup>
             <Button
               bsStyle="default"
-              onClick={this.login.bind(this)}
+              onClick={this.login}
               type="submit"
             > Entrar
             </Button>
@@ -37,10 +48,5 @@ class Login extends React.Component {
 		);
   }
 }
-
-Login.propTypes = {
-  loginUser: React.PropTypes.func,
-  error: React.PropTypes.string
-};
 
 export default Login;

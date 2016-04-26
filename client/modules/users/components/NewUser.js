@@ -1,23 +1,34 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Col, Panel, FormControl, FormGroup, Button} from 'react-bootstrap';
 
 class NewUser extends React.Component {
+  static propTypes() {
+    return {
+      create: this.propTypes.func,
+      error: this.propTypes.string
+    };
+  }
+  constructor(props) {
+    super(props);
+    this.createUser = this.createUser.bind(this);
+    this.create = props.create;
+    this.error = props.error;
+  }
   createUser(e) {
     e.preventDefault();
-    const {create} = this.props;
     const {email, password} = this.refs;
-    create(email.value, password.value);
-    email.value = '';
-    password.value = '';
+    const find = ReactDOM.findDOMNode;
+    this.create(find(email).value, find(password).value);
+    find(email).value = '';
+    find(password).value = '';
   }
-
   render() {
-    const {error} = this.props;
     return (
 			<Col xs={12} sm={6} smOffset={3}>
         <Panel>
           <h1>Register</h1>
-          {error ? <p style={{color: 'red'}}>{error}</p> : null}
+          {this.error ? <p style={{color: 'red'}}>{this.error}</p> : null}
           <form>
             <FormGroup>
               <FormControl ref="email" type="email" placeholder="Email" />
@@ -27,7 +38,7 @@ class NewUser extends React.Component {
             </FormGroup>
             <Button
               bsStyle="default"
-              onClick={this.createUser.bind(this)}
+              onClick={this.createUser}
               type="submit"
             > Entrar
             </Button>
@@ -37,10 +48,5 @@ class NewUser extends React.Component {
 		);
   }
 }
-
-NewUser.propTypes = {
-  create: React.PropTypes.func,
-  error: React.PropTypes.string
-};
 
 export default NewUser;
