@@ -13,7 +13,6 @@ class NewUser extends React.Component {
     super(props);
     this.createUser = this.createUser.bind(this);
     this.create = props.create;
-    this.error = props.error;
   }
   createUser(e) {
     e.preventDefault();
@@ -24,11 +23,12 @@ class NewUser extends React.Component {
     find(password).value = '';
   }
   render() {
+    const {error} = this.props;
     return (
 			<Col xs={12} sm={6} smOffset={3}>
         <Panel>
           <h1>Register</h1>
-          {this.error ? <p style={{color: 'red'}}>{this.error}</p> : null}
+          {error ? <p style={{color: 'red'}}>{error}</p> : null}
           <form>
             <FormGroup>
               <FormControl ref="email" type="email" placeholder="Email" />
