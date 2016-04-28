@@ -4,7 +4,7 @@ import NewUser from '../users/containers/NewUser.js';
 import Login from '../users/containers/Login.js';
 import MainLayout from './components/main_layout.js';
 import Session from '../questions/containers/session';
-import NewClass from '../questions/containers/newClass';
+import ClassList from '../questions/containers/classList';
 
 
 export default function (injectDeps, {FlowRouter, Meteor}) {
@@ -56,11 +56,11 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
   });
 
   // Class Routes
-  FlowRouter.route('/newclass', {
-    name: 'class.new',
+  FlowRouter.route('/classes', {
+    name: 'class.list',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<NewClass />)
+        content: () => (<ClassList />)
       });
     }
   });

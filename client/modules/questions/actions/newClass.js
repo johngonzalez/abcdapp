@@ -12,7 +12,8 @@ export default {
     }
 
     LocalState.set('CREATE_CLASS_ERROR', null);
-    Meteor.call('class.create', className, (err) => {
+    const id = Meteor.uuid();
+    Meteor.call('class.create', id, className, (err) => {
       if (err) {
         return LocalState.set('CREATE_CLASS_ERROR', err.message);
       }
