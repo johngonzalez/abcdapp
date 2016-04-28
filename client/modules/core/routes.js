@@ -4,6 +4,7 @@ import NewUser from '../users/containers/NewUser.js';
 import Login from '../users/containers/Login.js';
 import MainLayout from './components/main_layout.js';
 import Session from '../questions/containers/session';
+import NewClass from '../questions/containers/newClass';
 
 
 export default function (injectDeps, {FlowRouter, Meteor}) {
@@ -50,6 +51,16 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
     action() {
       mount(MainLayoutCtx, {
         content: () => (<Session />)
+      });
+    }
+  });
+
+  // Class Routes
+  FlowRouter.route('/newclass', {
+    name: 'class.new',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<NewClass />)
       });
     }
   });
