@@ -5,6 +5,7 @@ import Login from '../users/containers/Login.js';
 import MainLayout from './components/main_layout.js';
 import Session from '../questions/containers/session';
 import ClassList from '../questions/containers/classList';
+import ClassItem from '../questions/containers/classItem';
 
 
 export default function (injectDeps, {FlowRouter, Meteor}) {
@@ -57,10 +58,18 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
 
   // Class Routes
   FlowRouter.route('/classes', {
-    name: 'class.list',
+    name: 'classes.list',
     action() {
       mount(MainLayoutCtx, {
         content: () => (<ClassList />)
+      });
+    }
+  });
+  FlowRouter.route('/class/:classId', {
+    name: 'class.single',
+    action({classId}) {
+      mount(MainLayoutCtx, {
+        content: () => (<ClassItem classId={classId} />)
       });
     }
   });
