@@ -1,11 +1,11 @@
 import Session from '../components/session.js';
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 
-export const composer = ({context, clearSelection}, onData) => {
+export const composer = ({context, clearSelection, classId}, onData) => {
   const {LocalState, Meteor, Collections} = context();
 
-  if (Meteor.subscribe('questions.list').ready()) {
-    const questionsCount = Collections.Questions.find().count();
+  if (Meteor.subscribe('questions.list', classId).ready()) {
+    const questionsCount = Collections.Questions.find({classId}).count();
     const currentQuestionId = LocalState.get('SELECT_QUESTION') || 1;
     onData(null, {questionsCount, currentQuestionId});
   }

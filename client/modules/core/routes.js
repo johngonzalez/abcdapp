@@ -47,11 +47,11 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
   });
 
   // Response Routes
-  FlowRouter.route('/question', {
+  FlowRouter.route('/question/:classId', {
     name: 'sesssion.show',
-    action() {
+    action({classId}) {
       mount(MainLayoutCtx, {
-        content: () => (<Session />)
+        content: () => (<Session classId={classId} />)
       });
     }
   });
