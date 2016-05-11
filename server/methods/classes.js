@@ -11,6 +11,13 @@ export default function () {
       const sessionClass = {_id, className, createdAt};
       Meteor._sleepForMs(5000);
       Classes.insert(sessionClass);
+    },
+    'class.update'(classId, newClassName) {
+      check(newClassName, String);
+      check(classId, String);
+      Classes.update(classId, {
+        $set: {className: newClassName}
+      });
     }
   });
 }

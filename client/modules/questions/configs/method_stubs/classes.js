@@ -10,6 +10,13 @@ export default function ({Collections, Meteor}) {
       Collections.Classes.insert({
         _id, className, saving, createdAt
       });
+    },
+    'class.update'(classId, newClassName) {
+      check(newClassName, String);
+      check(classId, String);
+      Collections.Classes.update(classId, {
+        $set: {className: newClassName}
+      });
     }
   });
 }

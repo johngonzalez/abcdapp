@@ -1,11 +1,12 @@
 import React from 'react';
 import QuestionsList from '../containers/questionsList';
+import ClassItemTitle from '../containers/classItemTitle';
 // import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
 const ClassItem = ({classItem}) => (
   <div>
-    <h2>{classItem.className}</h2>
-     <QuestionsList classId={classItem._id} />
+    <ClassItemTitle title={classItem.className} classId={classItem._id} />
+    <QuestionsList classId={classItem._id} />
   </div>
 );
 
