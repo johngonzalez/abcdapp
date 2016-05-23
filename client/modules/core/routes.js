@@ -2,7 +2,7 @@ import React from 'react';
 import {mount} from 'react-mounter';
 import NewUser from '../users/containers/NewUser.js';
 import Login from '../users/containers/Login.js';
-import MainLayout from './components/main_layout.js';
+import MainLayout from './containers/main_layout.js';
 import Session from '../questions/containers/session';
 import ClassList from '../questions/containers/classList';
 import ClassItem from '../questions/containers/classItem';
@@ -16,7 +16,7 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
     name: 'home',
     action() {
       mount(MainLayoutCtx, {
-        content: () => (<p>Hello world</p>)
+        content: () => (<ClassList />)
       });
     }
   });
