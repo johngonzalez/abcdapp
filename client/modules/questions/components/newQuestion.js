@@ -42,11 +42,12 @@ class NewQuestion extends React.Component {
   }
   createQuestion(e) {
     e.preventDefault();
-    const {name, ans, component, competence} = this.refs;
+    const {name, file, ans, component, competence} = this.refs;
     const find = ReactDOM.findDOMNode;
     const response = this.getValue(find(ans));
     this.create(
       find(name).value,
+      find(file).files[0],
       this.classId,
       response,
       find(component).value,
@@ -74,6 +75,10 @@ class NewQuestion extends React.Component {
                   {error ? <p style={{color: 'red'}}>{error}</p> : null}
                   <FormControl ref="name" type="text" placeholder="Question name" />
                 </FormGroup>
+                <FormGroup controlId="formControlsFile">
+                  <HelpBlock>Upload image</HelpBlock>
+                  <FormControl ref="file" type="file" />
+                  </FormGroup>
                 <FormGroup ref="ans">
                   <HelpBlock>Select the correct answer:</HelpBlock>
                   <Radio value={0} name="response">a</Radio>

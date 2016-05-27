@@ -1,22 +1,29 @@
 import React from 'react';
 import NewQuestion from '../containers/newQuestion';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Thumbnail, Col, Row} from 'react-bootstrap';
 
+// TODO: Create progress bar to upload file
 const QuestionsList = ({questions, classId}) => (
   <div>
-    <ListGroup>
+    <Row>
       {
         questions ?
           questions.map(q => (
-            <ListGroupItem key={q._id} href={q.saving ? null : `/class/${q._id}`}>
-              {q.questionName}
-              {q.saving ? <b> saving...</b> : null}
-            </ListGroupItem>
-          )) :
-          null
+            <Col xs={12} md={4} key={q._id}>
+              <Thumbnail src={q.imageUrl} alt="imagen">
+                <h3>{q.questionName}</h3>
+                <p>{q.saving ? <b> saving...</b> : null}</p>
+              </Thumbnail>
+            </Col>
+            )) :
+            null
       }
-    </ListGroup>
-    <NewQuestion classId={classId} />
+      <Col xs={12} md={4}>
+        <Thumbnail>
+          <NewQuestion classId={classId} />
+        </Thumbnail>
+      </Col>
+    </Row>
   </div>
 );
 

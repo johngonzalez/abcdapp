@@ -2,7 +2,6 @@ import React from 'react';
 import NewClass from '../containers/newClass';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
-// TODO: Wrap ClassList into authComposer component
 const ClassList = ({loggedIn, loggingIn, classes}) => (
   <div>
     {
