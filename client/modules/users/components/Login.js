@@ -6,6 +6,9 @@ class Login extends React.Component {
   static propTypes() {
     return {
       loginUser: this.propTypes.func,
+      toggleRegisterUser: this.propTypes.func,
+      isRegistering: this.propTypes.bool,
+      create: this.propTypes.func,
       error: this.propTypes.string
     };
   }
@@ -13,7 +16,24 @@ class Login extends React.Component {
     super(props);
     this.login = this.login.bind(this);
     this.loginUser = props.loginUser;
+    this.toggleRegister = this.toggleRegister.bind(this);
+    this.toggleRegisterUser = props.toggleRegisterUser;
+    this.createUser = this.createUser.bind(this);
+    this.create = props.create;
     this.error = props.error;
+  }
+  toggleRegister(e) {
+    e.preventDefault();
+    this.toggleRegisterUser();
+  }
+  createUser(e) {
+    e.preventDefault();
+    const {email, password, confirmPassword} = this.refs;
+    const find = ReactDOM.findDOMNode;
+    this.create(find(email).value, find(password).value, find(confirmPassword).value);
+    find(email).value = '';
+    find(password).value = '';
+    find(confirmPassword).value = '';
   }
   login(e) {
     e.preventDefault();
@@ -24,11 +44,11 @@ class Login extends React.Component {
     find(password).value = '';
   }
   render() {
-    const {error} = this.props;
+    const {error, isRegistering} = this.props;
     return (
 			<Col xs={12} sm={6} smOffset={3}>
         <Panel>
-          <h1>Entra</h1>
+          <h1>{isRegistering ? 'Registro' : 'Entra'}</h1>
           {error ? <p style={{color: 'red'}}>{error}</p> : null}
           <form>
             <FormGroup>
@@ -37,13 +57,26 @@ class Login extends React.Component {
             <FormGroup>
               <FormControl ref="password" type="password" placeholder="Password" />
             </FormGroup>
+            {
+              isRegistering ?
+              <FormGroup>
+                <FormControl ref="confirmPassword" type="password" placeholder="Confirm Password" />
+              </FormGroup> :
+              null
+            }
             <Button
               bsStyle="default"
-              onClick={this.login}
+              onClick={isRegistering ? this.createUser : this.login}
               type="submit"
-            > Entrar
+            > {isRegistering ? 'Registrar' : 'Entrar'}
             </Button>
           </form>
+          <hr />
+          {
+            isRegistering ?
+            <p>Ya tienes cuenta, <a onClick={this.toggleRegister}>Entra</a></p> :
+            <p>No tienes cuenta, <a onClick={this.toggleRegister}>Crea una</a></p>
+          }
         </Panel>
       </Col>
 		);

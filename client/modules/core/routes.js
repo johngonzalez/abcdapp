@@ -1,6 +1,5 @@
 import React from 'react';
 import {mount} from 'react-mounter';
-import NewUser from '../users/containers/NewUser.js';
 import Login from '../users/containers/Login.js';
 import MainLayout from './containers/main_layout.js';
 import Session from '../questions/containers/session';
@@ -22,14 +21,7 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
   });
 
   // Users Routes
-  FlowRouter.route('/register', {
-    name: 'users.new',
-    action() {
-      mount(MainLayoutCtx, {
-        content: () => (<NewUser />)
-      });
-    }
-  });
+  // TODO: Remove login route
   FlowRouter.route('/login', {
     name: 'users.login',
     action() {
