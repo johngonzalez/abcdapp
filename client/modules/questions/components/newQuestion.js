@@ -16,7 +16,8 @@ class NewQuestion extends React.Component {
       showModal: this.propTypes.bool.isRequired,
       openModal: this.propTypes.func.isRequired,
       closeModal: this.propTypes.func.isRequired,
-      classId: this.propTypes.string.isRequired
+      classId: this.propTypes.string.isRequired,
+      questionSeq: this.propTypes.number.isRequired
     };
   }
   constructor(props) {
@@ -40,22 +41,25 @@ class NewQuestion extends React.Component {
     }
     return parseInt(result[0].value, 10);
   }
-  createQuestion(e) {
-    e.preventDefault();
-    const {name, file, ans, component, competence} = this.refs;
-    const find = ReactDOM.findDOMNode;
-    const response = this.getValue(find(ans));
-    this.create(
-      find(name).value,
-      find(file).files[0],
-      this.classId,
-      response,
-      find(component).value,
-      find(competence).value
-    );
+  createQuestion(questionSeq) {
+    return (e) => {
+      e.preventDefault();
+      const {name, file, ans, component, competence} = this.refs;
+      const find = ReactDOM.findDOMNode;
+      const response = this.getValue(find(ans));
+      this.create(
+        questionSeq,
+        find(name).value,
+        find(file).files[0],
+        this.classId,
+        response,
+        find(component).value,
+        find(competence).value
+      );
+    };
   }
   render() {
-    const {showModal, error} = this.props;
+    const {showModal, error, questionSeq} = this.props;
     return (
       <div>
           <Button
@@ -78,7 +82,7 @@ class NewQuestion extends React.Component {
                 <FormGroup controlId="formControlsFile">
                   <HelpBlock>Upload image</HelpBlock>
                   <FormControl ref="file" type="file" />
-                  </FormGroup>
+                </FormGroup>
                 <FormGroup ref="ans">
                   <HelpBlock>Select the correct answer:</HelpBlock>
                   <Radio value={0} name="response">a</Radio>
@@ -121,7 +125,7 @@ class NewQuestion extends React.Component {
                     <option value="termodinamica">Termodinámica</option>
                   </FormControl>
                 </FormGroup>
-                <Button type="submit" onClick={this.createQuestion}>Create</Button>
+                <Button type="submit" onClick={this.createQuestion(questionSeq)}>Create</Button>
               </form>
             </Modal.Body>
           </Modal>

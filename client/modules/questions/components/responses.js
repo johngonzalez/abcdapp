@@ -5,7 +5,9 @@ class Response extends React.Component {
   static propTypes() {
     return {
       select: this.propTypes.func,
-      questionId: this.propTypes.number
+      questionId: this.propTypes.string,
+      classId: this.propTypes.string,
+      lastResponse: this.propTypes.object
     };
   }
   constructor(props) {
@@ -14,20 +16,48 @@ class Response extends React.Component {
     this.select = props.select;
     this.questionId = props.questionId;
   }
+  isSelected(i) {
+    const {lastResponse} = this;
+    const id = lastResponse ? lastResponse.responseId : null;
+    return id !== null && id === i;
+  }
+  isSaving(i) {
+    const {lastResponse} = this;
+    const id = lastResponse ? lastResponse.responseId : null;
+    const saving = lastResponse ? lastResponse.saving : null;
+    return id !== null && id === i && saving;
+  }
   selectResponse(e) {
     e.preventDefault();
-    const {questionId} = this.props;
+    const {questionId, classId} = this.props;
     const responseId = parseInt(e.target.value, 10);
-    this.select(questionId, responseId);
+    this.select(classId, questionId, responseId);
   }
   render() {
-    // TODO: Remember selection to user
+    const isSelected = this.isSelected.bind(this.props);
+    const isSaving = this.isSaving.bind(this.props);
     return (
       <div>
-        <Button bsSize="large" block value={0} onClick={this.selectResponse}>a</Button>
-        <Button bsSize="large" block value={1} onClick={this.selectResponse}>b</Button>
-        <Button bsSize="large" block value={2} onClick={this.selectResponse}>c</Button>
-        <Button bsSize="large" block value={3} onClick={this.selectResponse}>d</Button>
+        {
+          [ 0, 1, 2, 3 ].map( i => (
+            <Button
+              key={i}
+              bsSize="large"
+              bsStyle={isSelected(i) ? 'primary' : 'default'}
+              block
+              value={i}
+              onClick={this.selectResponse}
+            >
+              <span>
+                {
+                  isSaving(i) ?
+                  ' saving...' :
+                  String.fromCharCode(97 + i)
+                }
+              </span>
+            </Button>
+          ))
+        }
       </div>
     );
   }

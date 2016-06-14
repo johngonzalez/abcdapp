@@ -2,10 +2,15 @@ import Responses from '../components/responses.js';
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 
 export const composer = ({context, clearErrors, questionId}, onData) => {
-  const {LocalState} = context();
+  const {LocalState, Collections} = context();
   const error = LocalState.get('SELECT_RESPONSE_ERROR');
-  onData(null, {error, questionId});
-
+  const options = {sort: {createdAt: -1}, limit: 1};
+  const lastResponse = Collections.Responses.find({questionId}, options).fetch()[0];
+  if (lastResponse) {
+    onData(null, {error, questionId, lastResponse});
+  } else {
+    onData(null, {error, questionId});
+  }
   // clearErrors when unmounting the component
   return clearErrors;
 };

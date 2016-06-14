@@ -9,7 +9,7 @@ export const composer = ({context, classId}, onData) => {
     onData(null, {questions});
   } else {
     const questions = Collections.Questions.find({classId}).fetch();
-    if (questions) {
+    if (questions.length > 0) {
       onData(null, {questions});
     } else {
       onData();

@@ -7,6 +7,7 @@ export default {
   },
   create(
     {Meteor, LocalState, FlowRouter, Upload},
+    questionSeq,
     questionName,
     file,
     classId,
@@ -38,6 +39,7 @@ export default {
       // After that image is upload to S3, save question
       Meteor.call('question.create',
         id,
+        questionSeq,
         questionName,
         imageUrl,
         classId,

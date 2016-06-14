@@ -6,8 +6,9 @@ class Sessions extends React.Component {
   static propTypes() {
     return {
       select: this.propTypes.func,
-      currentQuestionId: this.propTypes.number.isRequired,
-      questionsCount: this.propTypes.number.isRequired
+      currentQuestion: this.propTypes.object.isRequired,
+      questionsCount: this.propTypes.number.isRequired,
+      classId: this.propTypes.string.isRequired
     };
   }
   constructor(props) {
@@ -19,19 +20,21 @@ class Sessions extends React.Component {
     this.select(e);
   }
   render() {
-    const {currentQuestionId, questionsCount} = this.props;
+    const {questionsCount, currentQuestion, classId} = this.props;
     return (
+      currentQuestion ?
         <div>
           <div className="text-center">
-            <Pagination
-              bsSize="big"
-              activePage={currentQuestionId}
-              items={questionsCount}
-              onSelect={this.handleSelect}
-            />
+              <Pagination
+                bsSize="big"
+                activePage={currentQuestion.questionSeq + 1}
+                items={questionsCount}
+                onSelect={this.handleSelect}
+              />
           </div>
-        <Question questionId={currentQuestionId} />
-      </div>
+        <Question classId={classId} questionId={currentQuestion._id} />
+      </div> :
+      <p>No hay preguntas aún</p>
     );
   }
 }

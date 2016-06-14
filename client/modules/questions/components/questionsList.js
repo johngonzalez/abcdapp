@@ -20,7 +20,10 @@ const QuestionsList = ({questions, classId}) => (
       }
       <Col xs={12} md={4}>
         <Thumbnail>
-          <NewQuestion classId={classId} />
+          <NewQuestion
+            questionSeq={questions ? questions.length : 0}
+            classId={classId}
+          />
         </Thumbnail>
       </Col>
     </Row>

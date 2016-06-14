@@ -1,9 +1,8 @@
-import responses from './responses';
-import questions from './questions';
+import {questionsList, questionsResponsesList} from './questions';
 import classes from './classes';
 
 export default function () {
-  responses();
-  questions();
+  questionsList();
+  questionsResponsesList();
   classes();
 }
