@@ -1,7 +1,8 @@
 import React from 'react';
 import {Grid, Row} from 'react-bootstrap';
 import Navigation from '../components/navigation';
-import Login from '/client/modules/users/containers/Login';
+// TODO: Login container should be core or parameter of main_layout
+import Login from '../../../../client/modules/users/containers/Login';
 
 const Layout = ({loggingIn, loggedIn, content = () => null }) => (
   <Grid>

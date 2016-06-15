@@ -1,6 +1,7 @@
 import ClassList from '../components/classList';
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
-import {authComposer} from '/client/modules/users/containers/auth';
+// TODO: authComposer should be imported with a package. Logging is not necessary
+import {authComposer} from '../../../../client/modules/users/containers/auth';
 
 export const composer = ({context}, onData) => {
   const {Meteor, Collections} = context();

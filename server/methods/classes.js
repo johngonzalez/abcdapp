@@ -1,4 +1,4 @@
-import {Classes} from '/lib/collections';
+import {Classes} from '../../lib/collections';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 

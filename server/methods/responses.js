@@ -1,4 +1,4 @@
-import {Responses} from '/lib/collections';
+import {Responses} from '../../lib/collections';
 import {Meteor} from 'meteor/meteor';
 import {check} from 'meteor/check';
 

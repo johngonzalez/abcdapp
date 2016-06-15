@@ -1,4 +1,4 @@
-import {Questions} from '/lib/collections';
+import {Questions} from '../../lib/collections';
 
 export default function () {
   if (!Questions.findOne()) {
