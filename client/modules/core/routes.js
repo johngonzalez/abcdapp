@@ -6,7 +6,6 @@ import Session from '../questions/containers/session';
 import ClassList from '../questions/containers/classList';
 import ClassItem from '../questions/containers/classItem';
 
-
 export default function (injectDeps, {FlowRouter, Meteor}) {
   const MainLayoutCtx = injectDeps(MainLayout);
 

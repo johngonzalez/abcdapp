@@ -4,11 +4,12 @@ import {check} from 'meteor/check';
 
 export default function () {
   Meteor.methods({
-    'class.create'(_id, className) {
-      check(className, String);
+    'class.create'(_id, className, durationQuestion) {
       check(_id, String);
+      check(className, String);
+      check(durationQuestion, Number);
       const createdAt = new Date();
-      const sessionClass = {_id, className, createdAt};
+      const sessionClass = {_id, className, createdAt, durationQuestion};
       Meteor._sleepForMs(5000);
       Classes.insert(sessionClass);
     },

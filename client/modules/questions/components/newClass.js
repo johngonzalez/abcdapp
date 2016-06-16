@@ -23,9 +23,9 @@ class NewClass extends React.Component {
   }
   createClass(e) {
     e.preventDefault();
-    const {name} = this.refs;
+    const {name, durationQuestion} = this.refs;
     const find = ReactDOM.findDOMNode;
-    this.create(find(name).value);
+    this.create(find(name).value, parseInt(find(durationQuestion).value, 10));
     find(name).value = '';
   }
   render() {
@@ -48,6 +48,23 @@ class NewClass extends React.Component {
                 <FormGroup>
                   {error ? <p style={{color: 'red'}}>{error}</p> : null}
                   <FormControl ref="name" type="text" placeholder="Class name" />
+                </FormGroup>
+                <FormGroup controlId="component">
+                  <FormControl
+                    componentClass="select"
+                    placeholder="Duration by question"
+                    defaultValue=""
+                    ref="durationQuestion"
+                  >
+                    <option value="" disabled>Duración por pregunta</option>
+                    <option value="30">30 segundos</option>
+                    <option value="60">1 minuto</option>
+                    <option value="90">1.5 minutos</option>
+                    <option value="120">2 minutos</option>
+                    <option value="180">3 minutos</option>
+                    <option value="300">5 minutos</option>
+                    <option value="600">10 minutos</option>
+                  </FormControl>
                 </FormGroup>
                 <Button type="submit" onClick={this.createClass}>Create</Button>
               </form>

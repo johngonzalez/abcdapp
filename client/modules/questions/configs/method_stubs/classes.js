@@ -2,13 +2,14 @@ import {check} from 'meteor/check';
 
 export default function ({Collections, Meteor}) {
   Meteor.methods({
-    'class.create'(_id, className) {
+    'class.create'(_id, className, durationQuestion) {
       check(_id, String);
       check(className, String);
+      check(durationQuestion, Number);
       const saving = true;
       const createdAt = new Date();
       Collections.Classes.insert({
-        _id, className, saving, createdAt
+        _id, className, saving, createdAt, durationQuestion
       });
     },
     'class.update'(classId, newClassName) {
