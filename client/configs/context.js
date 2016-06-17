@@ -4,6 +4,7 @@ import {FlowRouter} from 'meteor/kadira:flow-router';
 import {ReactiveDict} from 'meteor/reactive-dict';
 import {Tracker} from 'meteor/tracker';
 import {Slingshot} from 'meteor/edgee:slingshot';
+import {Roles} from 'meteor/alanning:roles';
 
 export default function () {
   return {
@@ -12,6 +13,7 @@ export default function () {
     Collections,
     LocalState: new ReactiveDict(),
     Tracker,
-    Upload: (directive) => new Slingshot.Upload(directive)
+    Upload: (directive) => new Slingshot.Upload(directive),
+    Roles
   };
 }

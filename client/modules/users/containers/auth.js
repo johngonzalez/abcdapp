@@ -6,3 +6,11 @@ export function authComposer({context}, onData) {
     loggingIn: Meteor.loggingIn()
   });
 }
+
+export function adminComposer({context}, onData) {
+  const {Meteor, Roles} = context();
+
+  onData(null, {
+    isAdmin: Roles.userIsInRole( Meteor.userId(), 'admin' )
+  });
+}

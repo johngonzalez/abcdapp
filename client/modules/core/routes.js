@@ -5,6 +5,7 @@ import MainLayout from './containers/main_layout.js';
 import Session from '../questions/containers/session';
 import ClassList from '../questions/containers/classList';
 import ClassItem from '../questions/containers/classItem';
+import TeachersList from '../users/containers/teachersList';
 
 export default function (injectDeps, {FlowRouter, Meteor}) {
   const MainLayoutCtx = injectDeps(MainLayout);
@@ -34,6 +35,19 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
     action() {
       Meteor.logout();
       FlowRouter.go('/');
+    }
+  });
+
+  const authenticatedRoutes = FlowRouter.group({
+    name: 'authenticated',
+  });
+
+  authenticatedRoutes.route( '/teachers', {
+    name: 'users',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<TeachersList />)
+      });
     }
   });
 
