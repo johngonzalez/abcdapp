@@ -3,8 +3,9 @@ import MainLayout from '../components/main_layout';
 // TODO: authComposer should be imported with a package
 import {authComposer} from '../../../../client/modules/users/containers/auth';
 
-export const composer = ({context}, onData) => {
-  onData(null, {});
+export const composer = ({context, content}, onData) => {
+  const nologging = content && content().props ? content().props.nologging : null;
+  onData(null, {nologging});
 };
 export default composeAll(
   composeWithTracker(authComposer),

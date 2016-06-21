@@ -8,7 +8,6 @@ export default function () {
     password: 'password',
     roles: [ 'admin' ],
   } ];
-
   users.forEach(({ email, password, roles }) => {
     const userExists = Meteor.users.findOne({ 'emails.address': email });
 

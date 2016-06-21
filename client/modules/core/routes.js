@@ -6,6 +6,7 @@ import Session from '../questions/containers/session';
 import ClassList from '../questions/containers/classList';
 import ClassItem from '../questions/containers/classItem';
 import TeachersList from '../users/containers/teachersList';
+import AcceptInvitation from '../users/containers/acceptInvitation';
 
 export default function (injectDeps, {FlowRouter, Meteor}) {
   const MainLayoutCtx = injectDeps(MainLayout);
@@ -35,6 +36,14 @@ export default function (injectDeps, {FlowRouter, Meteor}) {
     action() {
       Meteor.logout();
       FlowRouter.go('/');
+    }
+  });
+  FlowRouter.route('/invite/:token', {
+    name: 'invitation.accept',
+    action({token}) {
+      mount(MainLayoutCtx, {
+        content: () => (<AcceptInvitation nologging token={token} />)
+      });
     }
   });
 
