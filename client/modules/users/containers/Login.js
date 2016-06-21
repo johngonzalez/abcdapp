@@ -12,7 +12,7 @@ export const composer = ({context, clearErrors}, onData) => {
 };
 
 export const depsMapper = (context, actions) => ({
-  loginUser: actions.users.login,
+  login: actions.users.login,
   toggleRegisterUser: actions.users.toggleRegisterUser,
   create: actions.users.create,
   clearErrors: actions.users.clearErrors,

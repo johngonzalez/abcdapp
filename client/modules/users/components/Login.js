@@ -5,7 +5,7 @@ import {Col, Panel, FormControl, FormGroup, Button} from 'react-bootstrap';
 class Login extends React.Component {
   static propTypes() {
     return {
-      loginUser: this.propTypes.func,
+      login: this.propTypes.func,
       toggleRegisterUser: this.propTypes.func,
       isRegistering: this.propTypes.bool,
       create: this.propTypes.func,
@@ -14,8 +14,8 @@ class Login extends React.Component {
   }
   constructor(props) {
     super(props);
-    this.login = this.login.bind(this);
-    this.loginUser = props.loginUser;
+    this.loginUser = this.loginUser.bind(this);
+    this.login = props.login;
     this.toggleRegister = this.toggleRegister.bind(this);
     this.toggleRegisterUser = props.toggleRegisterUser;
     this.createUser = this.createUser.bind(this);
@@ -31,17 +31,12 @@ class Login extends React.Component {
     const {email, password, confirmPassword} = this.refs;
     const find = ReactDOM.findDOMNode;
     this.create(find(email).value, find(password).value, find(confirmPassword).value);
-    find(email).value = '';
-    find(password).value = '';
-    find(confirmPassword).value = '';
   }
-  login(e) {
+  loginUser(e) {
     e.preventDefault();
     const {email, password} = this.refs;
     const find = ReactDOM.findDOMNode;
-    this.loginUser(find(email).value, find(password).value);
-    find(email).value = '';
-    find(password).value = '';
+    this.login(find(email).value, find(password).value);
   }
   render() {
     const {error, isRegistering} = this.props;
@@ -66,7 +61,7 @@ class Login extends React.Component {
             }
             <Button
               bsStyle="default"
-              onClick={isRegistering ? this.createUser : this.login}
+              onClick={isRegistering ? this.createUser : this.loginUser}
               type="submit"
             > {isRegistering ? 'Registrar' : 'Entrar'}
             </Button>
@@ -74,8 +69,14 @@ class Login extends React.Component {
           <hr />
           {
             isRegistering ?
-            <p>Ya tienes cuenta, <a onClick={this.toggleRegister}>Entra</a></p> :
-            <p>No tienes cuenta, <a onClick={this.toggleRegister}>Crea una</a></p>
+            <p>
+              <span>Ya tienes cuenta, </span>
+              <a style={{cursor: 'pointer'}} onClick={this.toggleRegister}>Entra</a>
+            </p> :
+            <p>
+              <span>No tienes cuenta, </span>
+              <a style={{cursor: 'pointer'}} onClick={this.toggleRegister}>Crea una</a>
+            </p>
           }
         </Panel>
       </Col>

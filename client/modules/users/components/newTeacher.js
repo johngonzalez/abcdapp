@@ -46,7 +46,7 @@ class NewClass extends React.Component {
                   {error ? <p style={{color: 'red'}}>{error}</p> : null}
                   <FormControl ref="name" type="text" placeholder="Email" />
                 </FormGroup>
-                <Button type="submit" onClick={this.createInvitation}>Create</Button>
+                <Button type="submit" onClick={this.createInvitation}>Invitar</Button>
               </form>
             </Modal.Body>
           </Modal>

@@ -1,4 +1,3 @@
-import {Accounts} from 'meteor/accounts-base';
 export default {
   create({Meteor, LocalState, FlowRouter}, email, password, confirmPassword) {
     // TODO: match email. Is possible create it but no login an user.
@@ -17,10 +16,16 @@ export default {
     if (password !== confirmPassword) {
       return LocalState.set('LOGIN_ERROR', 'Passwords does not match.');
     }
-    LocalState.set('LOGIN_ERROR', null);
 
-    Accounts.createUser({email, password});
-    FlowRouter.go('/');
+    Meteor.call('users.create', email, password, (err) => {
+      if (err) {
+        LocalState.set('LOGIN_ERROR', err.message);
+      } else {
+        LocalState.set('LOGIN_ERROR', null);
+        Meteor.loginWithPassword(email, password);
+        FlowRouter.go('/');
+      }
+    });
   },
 
   login({Meteor, LocalState, FlowRouter}, email, password) {
@@ -34,8 +39,14 @@ export default {
 
     LocalState.set('LOGIN_ERROR', null);
 
-    Meteor.loginWithPassword(email, password);
-    FlowRouter.go('/');
+    Meteor.loginWithPassword(email, password, (err) => {
+      if (err) {
+        LocalState.set('LOGIN_ERROR', err.message);
+      } else {
+        LocalState.set('LOGIN_ERROR', null);
+        FlowRouter.go('/');
+      }
+    });
   },
 
   toggleRegisterUser({LocalState}) {

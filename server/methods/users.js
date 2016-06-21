@@ -10,6 +10,11 @@ import {Roles} from 'meteor/alanning:roles';
 
 export default function () {
   Meteor.methods({
+    'users.create'(email, password) {
+      check(email,String);
+      check(password, String);
+      Accounts.createUser({email, password});
+    },
     'invitation.create'(email) {
       check(email, String);
       const createdAt = new Date();
