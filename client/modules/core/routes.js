@@ -5,7 +5,7 @@ import MainLayout from './containers/main_layout.js';
 import Session from '../questions/containers/session';
 import ClassList from '../questions/containers/classList';
 import ClassItem from '../questions/containers/classItem';
-import TeachersList from '../users/containers/teachersList';
+import TeachersList from '../users/containers/teachersInvitationsNav';
 import AcceptInvitation from '../users/containers/acceptInvitation';
 
 export default function (injectDeps, {FlowRouter, Meteor}) {

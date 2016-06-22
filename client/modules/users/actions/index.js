@@ -1,11 +1,11 @@
 import users from './users';
 import newTeacher from './newTeacher';
 import acceptInvitation from './acceptInvitation';
-import teachersList from './teachersList';
+import teachersInvitationsNav from './teachersInvitationsNav';
 
 export default {
   users,
   newTeacher,
   acceptInvitation,
-  teachersList
+  teachersInvitationsNav
 };

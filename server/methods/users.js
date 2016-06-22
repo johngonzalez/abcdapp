@@ -15,21 +15,25 @@ export default function () {
       check(password, String);
       Accounts.createUser({email, password});
     },
-    'invitation.create'(email) {
+    'invitation.create'(_id, email) {
+      check(_id, String);
       check(email, String);
       const createdAt = new Date();
       const token = Random.hexString(16);
       const role = 'teacher';
       Meteor._sleepForMs(5000);
-      const invitation = {email, createdAt, token, role};
+      const invitation = {_id, email, createdAt, token, role};
       Invitations.insert(invitation);
 
-      SSR.compileTemplate( 'htmlEmail', Assets.getText('invitationEmail.html'));
+      SSR.compileTemplate('htmlEmail', Assets.getText('invitationEmail.html'));
 
       const emailData = {
         url: `http://localhost:3000/invite/${token}`,
-      };
 
+      };
+      // Let other method calls from the same client start running,
+      // without waiting for the email sending to complete.
+      this.unblock();
       Email.send({
         to: email,
         from: 'johngonzalez@mimentor.co',
@@ -47,8 +51,8 @@ export default function () {
         const userId = Accounts.createUser({email, password});
         if (userId) {
           Roles.setUserRoles(userId, invitation.role);
+          Invitations.remove({email});
         }
-        Invitations.remove({_id: invitation._id});
       }
     }
   });
