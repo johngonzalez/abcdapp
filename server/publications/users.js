@@ -8,4 +8,14 @@ export default function () {
     const options = {limit: 1};
     return Invitations.find({token}, options);
   });
+  Meteor.publish('teachers.list', function () {
+    const selector = {roles: 'teacher'};
+    const options = {fields: {'emails.address': 1, roles: 1}};
+    return Meteor.users.find(selector, options);
+  });
+  Meteor.publish('invitations.list', function () {
+    const selector = {};
+    const options = {fields: {email: 1, createdAt: 1}};
+    return Invitations.find(selector, options);
+  });
 }
