@@ -1,6 +1,6 @@
+import {Accounts} from 'meteor/accounts-base';
 import React from 'react';
 import {mount} from 'react-mounter';
-import Login from '../users/containers/Login.js';
 import MainLayout from './containers/main_layout.js';
 import Session from '../questions/containers/session';
 import ClassList from '../questions/containers/classList';
@@ -8,36 +8,34 @@ import ClassItem from '../questions/containers/classItem';
 import TeachersList from '../users/containers/teachersInvitationsNav';
 import AcceptInvitation from '../users/containers/acceptInvitation';
 
-export default function (injectDeps, {FlowRouter, Meteor}) {
+export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
   const MainLayoutCtx = injectDeps(MainLayout);
+
+  const redirectAccordingRole = () => {
+    const mainRoleUser = Roles.getRolesForUser(Meteor.userId())[0];
+    switch (mainRoleUser) {
+      case 'teacher':
+        FlowRouter.go('/classes');
+        break;
+      case 'admin':
+        FlowRouter.go('/teachers');
+        break;
+      default:
+        FlowRouter.go('/classes');
+    }
+  };
+  Accounts.onLogin(() => {
+    redirectAccordingRole();
+  });
 
   // Core Routes
   FlowRouter.route('/', {
     name: 'home',
     action() {
-      mount(MainLayoutCtx, {
-        content: () => (<ClassList />)
-      });
+      redirectAccordingRole();
     }
   });
 
-  // Users Routes
-  // TODO: Remove login route
-  FlowRouter.route('/login', {
-    name: 'users.login',
-    action() {
-      mount(MainLayoutCtx, {
-        content: () => (<Login />)
-      });
-    }
-  });
-  FlowRouter.route('/logout', {
-    name: 'users.logout',
-    action() {
-      Meteor.logout();
-      FlowRouter.go('/');
-    }
-  });
   FlowRouter.route('/invite/:token', {
     name: 'invitation.accept',
     action({token}) {

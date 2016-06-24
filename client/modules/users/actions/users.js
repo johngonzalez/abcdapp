@@ -23,7 +23,6 @@ export default {
       } else {
         LocalState.set('LOGIN_ERROR', null);
         Meteor.loginWithPassword(email, password);
-        FlowRouter.go('/');
       }
     });
   },
@@ -44,7 +43,6 @@ export default {
         LocalState.set('LOGIN_ERROR', err.message);
       } else {
         LocalState.set('LOGIN_ERROR', null);
-        FlowRouter.go('/');
       }
     });
   },
