@@ -4,6 +4,7 @@ import newClass from './newClass';
 import newQuestion from './newQuestion';
 import classItemTitle from './classItemTitle';
 import newSession from './newSession';
+import sessionRegister from './sessionRegister.js';
 
 export default {
   session,
@@ -11,5 +12,6 @@ export default {
   newClass,
   newQuestion,
   classItemTitle,
-  newSession
+  newSession,
+  sessionRegister
 };

@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {Button, Modal, FormGroup, FormControl} from 'react-bootstrap';
+import ReactDOM from 'react-dom';
 
 class NewClass extends React.Component {
   static propTypes() {

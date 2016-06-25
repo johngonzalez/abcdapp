@@ -1,5 +1,5 @@
-import NewSession from '../components/newSession';
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
+import NewSession from '../components/newSession';
 
 export const composer = ({context, clearNewSessionState}, onData) => {
   const {LocalState} = context();

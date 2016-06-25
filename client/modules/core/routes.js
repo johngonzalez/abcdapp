@@ -1,13 +1,13 @@
 import {Accounts} from 'meteor/accounts-base';
 import React from 'react';
 import {mount} from 'react-mounter';
-import MainLayout from './containers/main_layout.js';
-import Session from '../questions/containers/session';
-import ClassList from '../questions/containers/classList';
 import ClassItem from '../questions/containers/classItem';
-import TeachersList from '../users/containers/teachersInvitationsNav';
+import ClassList from '../questions/containers/classList';
+import Session from '../questions/containers/session';
 import AcceptInvitation from '../users/containers/acceptInvitation';
-import SessionRegister from '../users/components/sessionRegister';
+import SessionRegister from '../questions/containers/sessionRegister';
+import TeachersList from '../users/containers/teachersInvitationsNav';
+import MainLayout from './containers/main_layout.js';
 import redirectAccordingRole from './libs/redirectAccordingRole';
 
 export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
@@ -48,11 +48,11 @@ export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
   });
 
   // Response Routes
-  FlowRouter.route('/session/:token', {
-    name: 'sesssion.show',
-    action({token}) {
+  FlowRouter.route('/session/:sessionId', {
+    name: 'session.show',
+    action({sessionId}) {
       mount(MainLayoutCtx, {
-        content: () => (<Session token={token} />)
+        content: () => (<Session sessionId={sessionId} />)
       });
     }
   });

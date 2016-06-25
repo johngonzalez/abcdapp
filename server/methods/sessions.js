@@ -19,6 +19,16 @@ export default function () {
       Meteor._sleepForMs(5000);
       Sessions.insert(session);
       return code;
+    },
+    'sessionToken.insert'(code) {
+      check(code, String);
+      const session = Sessions.findOne({code});
+      if (session) {
+        return session._id;
+      }
+      throw Meteor.Error('sessionToken.insert.sessionNoExists',
+      'Session does not exits',
+      'Session does not exits. Try other session');
     }
   });
 }
