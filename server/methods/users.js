@@ -13,7 +13,12 @@ export default function () {
     'users.create'(email, password) {
       check(email,String);
       check(password, String);
-      Accounts.createUser({email, password});
+      const createdAt = new Date();
+      const role = 'student';
+      const userId = Accounts.createUser({email, password, createdAt});
+      if (userId) {
+        Roles.setUserRoles(userId, role);
+      }
     },
     'invitation.create'(_id, email) {
       check(_id, String);

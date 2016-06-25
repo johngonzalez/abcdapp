@@ -7,32 +7,21 @@ import ClassList from '../questions/containers/classList';
 import ClassItem from '../questions/containers/classItem';
 import TeachersList from '../users/containers/teachersInvitationsNav';
 import AcceptInvitation from '../users/containers/acceptInvitation';
+import SessionRegister from '../users/components/sessionRegister';
+import redirectAccordingRole from './libs/redirectAccordingRole';
 
 export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
   const MainLayoutCtx = injectDeps(MainLayout);
 
-  const redirectAccordingRole = () => {
-    const mainRoleUser = Roles.getRolesForUser(Meteor.userId())[0];
-    switch (mainRoleUser) {
-      case 'teacher':
-        FlowRouter.go('/classes');
-        break;
-      case 'admin':
-        FlowRouter.go('/teachers');
-        break;
-      default:
-        FlowRouter.go('/classes');
-    }
-  };
   Accounts.onLogin(() => {
-    redirectAccordingRole();
+    redirectAccordingRole(FlowRouter, Meteor, Roles);
   });
 
   // Core Routes
   FlowRouter.route('/', {
     name: 'home',
     action() {
-      redirectAccordingRole();
+      mount(MainLayoutCtx);
     }
   });
 
@@ -59,11 +48,11 @@ export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
   });
 
   // Response Routes
-  FlowRouter.route('/question/:classId', {
+  FlowRouter.route('/session/:token', {
     name: 'sesssion.show',
-    action({classId}) {
+    action({token}) {
       mount(MainLayoutCtx, {
-        content: () => (<Session classId={classId} />)
+        content: () => (<Session token={token} />)
       });
     }
   });
@@ -82,6 +71,14 @@ export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
     action({classId}) {
       mount(MainLayoutCtx, {
         content: () => (<ClassItem classId={classId} />)
+      });
+    }
+  });
+  FlowRouter.route('/code', {
+    name: 'session.register',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<SessionRegister />)
       });
     }
   });
