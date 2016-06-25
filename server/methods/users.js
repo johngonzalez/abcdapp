@@ -28,23 +28,30 @@ export default function () {
       const role = 'teacher';
       Meteor._sleepForMs(5000);
       const invitation = {_id, email, createdAt, token, role};
-      Invitations.insert(invitation);
+      const userExits = Accounts.findUserByEmail(email);
+      if (userExits) {
+        throw new Meteor.Error('invitation.create.userexits',
+        'User email already exits',
+        'User email already exits. Try with other email');
+      } else {
+        Invitations.insert(invitation);
 
-      SSR.compileTemplate('htmlEmail', Assets.getText('invitationEmail.html'));
+        SSR.compileTemplate('htmlEmail', Assets.getText('invitationEmail.html'));
 
-      const emailData = {
-        url: `http://localhost:3000/invite/${token}`,
+        const emailData = {
+          url: `http://localhost:3000/invite/${token}`,
 
-      };
-      // Let other method calls from the same client start running,
-      // without waiting for the email sending to complete.
-      this.unblock();
-      Email.send({
-        to: email,
-        from: 'johngonzalez@mimentor.co',
-        subject: 'Invitación',
-        html: SSR.render('htmlEmail', emailData)
-      });
+        };
+        // Let other method calls from the same client start running,
+        // without waiting for the email sending to complete.
+        this.unblock();
+        Email.send({
+          to: email,
+          from: 'johngonzalez@mimentor.co',
+          subject: 'Invitación',
+          html: SSR.render('htmlEmail', emailData)
+        });
+      }
     },
     'invitation.accept'(email, password, token) {
       check(email, String);

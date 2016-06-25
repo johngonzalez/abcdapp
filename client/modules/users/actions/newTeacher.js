@@ -2,6 +2,7 @@ import {Random} from 'meteor/random';
 
 export default {
   openModal({LocalState}) {
+    LocalState.set('SEND_INVITATION_ERROR', null);
     LocalState.set('SHOW_MODAL', true);
   },
   closeModal({LocalState}) {
@@ -14,7 +15,7 @@ export default {
     const _id = Random.id();
     Meteor.call('invitation.create', _id, email, (err) => {
       if (err) {
-        return LocalState.set('SEND_INVITATION_ERROR', err.message);
+        LocalState.set('SEND_INVITATION_ERROR', err.message);
       }
     });
     LocalState.set('SHOW_MODAL', false);

@@ -29,6 +29,7 @@ class NewClass extends React.Component {
     const {showModal, openModal, closeModal, error} = this.props;
     return (
       <div>
+          {error ? <p style={{color: 'red'}}>{error}</p> : null}
           <Button
             bsStyle="primary"
             bsSize="small"
@@ -43,7 +44,6 @@ class NewClass extends React.Component {
             <Modal.Body>
               <form>
                 <FormGroup>
-                  {error ? <p style={{color: 'red'}}>{error}</p> : null}
                   <FormControl ref="name" type="text" placeholder="Email" />
                 </FormGroup>
                 <Button type="submit" onClick={this.createInvitation}>Invitar</Button>
