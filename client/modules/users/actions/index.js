@@ -1,10 +1,12 @@
-import users from './users';
+import login from './login';
+import loginUser from './loginUser';
 import newTeacher from './newTeacher';
 import acceptInvitation from './acceptInvitation';
-import teachersInvitationsNav from './teachersInvitationsNav';
 
+import teachersInvitationsNav from './teachersInvitationsNav';
 export default {
-  users,
+  login,
+  loginUser,
   newTeacher,
   acceptInvitation,
   teachersInvitationsNav

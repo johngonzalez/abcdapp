@@ -1,5 +1,5 @@
 import React from 'react';
-import {Panel, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap';
+import {FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 
 class SessionRegisterCode extends React.Component {
@@ -21,17 +21,15 @@ class SessionRegisterCode extends React.Component {
   }
   render() {
     return (
-      <Panel>
-        <form>
-          <FormGroup>
-            <ControlLabel>
-              Ingresa el código de la sesión de clase dada por tu profesor
-            </ControlLabel>
-            <FormControl type="text" placeholder="Enter code" ref="code" />
-          </FormGroup>
-          <Button type="submit" onClick={this.insertCode}>Ingresa</Button>
-        </form>
-      </Panel>
+      <form>
+        <FormGroup>
+          <ControlLabel>
+            Ingresa el código de la sesión de clase dada por tu profesor
+          </ControlLabel>
+          <FormControl type="text" placeholder="Enter code" ref="code" />
+        </FormGroup>
+        <Button type="submit" onClick={this.insertCode}>Ingresa</Button>
+      </form>
     );
   }
 }
