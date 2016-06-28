@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Modal, FormGroup, FormControl} from 'react-bootstrap';
+import {Button, Modal, FormGroup, FormControl, Checkbox} from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 
 class NewClass extends React.Component {
@@ -21,12 +21,21 @@ class NewClass extends React.Component {
     this.openModal = props.openModal;
     this.closeModal = props.closeModal;
   }
+  getValue(node) {
+    // convert HTMLCollection  to Array
+    let children = Array.prototype.slice.call(node.querySelectorAll('input[type=checkbox]'));
+    // find if was checked
+    return children[0].checked;
+  }
   createClass(e) {
     e.preventDefault();
-    const {name, durationQuestion} = this.refs;
+    const {name, durationQuestion, isPublic} = this.refs;
     const find = ReactDOM.findDOMNode;
-    this.create(find(name).value, parseInt(find(durationQuestion).value, 10));
-    find(name).value = '';
+    this.create(
+      find(name).value,
+      parseInt(find(durationQuestion).value, 10),
+      this.getValue(find(isPublic))
+    );
   }
   render() {
     const {showModal, error} = this.props;
@@ -49,7 +58,7 @@ class NewClass extends React.Component {
                   {error ? <p style={{color: 'red'}}>{error}</p> : null}
                   <FormControl ref="name" type="text" placeholder="Class name" />
                 </FormGroup>
-                <FormGroup controlId="component">
+                <FormGroup>
                   <FormControl
                     componentClass="select"
                     placeholder="Duration by question"
@@ -65,6 +74,11 @@ class NewClass extends React.Component {
                     <option value="300">5 minutos</option>
                     <option value="600">10 minutos</option>
                   </FormControl>
+                </FormGroup>
+                <FormGroup>
+                  <Checkbox ref="isPublic">
+                    Público
+                  </Checkbox>
                 </FormGroup>
                 <Button type="submit" onClick={this.createClass}>Create</Button>
               </form>
