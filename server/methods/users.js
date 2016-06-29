@@ -7,6 +7,7 @@ import {SSR} from 'meteor/meteorhacks:ssr';
 import {Email} from 'meteor/email';
 import {Accounts} from 'meteor/accounts-base';
 import {Roles} from 'meteor/alanning:roles';
+import {LoginState} from 'meteor/brettle:accounts-login-state';
 
 export default function () {
   Meteor.methods({
@@ -18,6 +19,14 @@ export default function () {
       const userId = Accounts.createUser({email, password, createdAt});
       if (userId) {
         Roles.setUserRoles(userId, role);
+      }
+    },
+    'users.addDisplayName'() {
+      const user = Meteor.user();
+      if (user && !LoginState.signedUp(user) && !user.displayName) {
+        Meteor.users.update(user._id, {
+          $set: {displayName: `usuario ${Math.floor((Math.random() * 1000))}`}
+        });
       }
     },
     'invitation.create'(_id, email) {
