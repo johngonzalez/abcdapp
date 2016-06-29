@@ -52,7 +52,7 @@ export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
     name: 'session.show',
     action({sessionId}) {
       mount(MainLayoutCtx, {
-        content: () => (<Session sessionId={sessionId} />)
+        content: () => (<Session nologging sessionId={sessionId} />)
       });
     }
   });
