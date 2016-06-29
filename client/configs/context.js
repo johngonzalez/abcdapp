@@ -5,6 +5,7 @@ import {ReactiveDict} from 'meteor/reactive-dict';
 import {Tracker} from 'meteor/tracker';
 import {Slingshot} from 'meteor/edgee:slingshot';
 import {Roles} from 'meteor/alanning:roles';
+import {LoginState} from 'meteor/brettle:accounts-login-state';
 
 export default function () {
   return {
@@ -14,6 +15,7 @@ export default function () {
     LocalState: new ReactiveDict(),
     Tracker,
     Upload: (directive) => new Slingshot.Upload(directive),
-    Roles
+    Roles,
+    LoginState
   };
 }

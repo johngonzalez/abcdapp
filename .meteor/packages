@@ -29,3 +29,6 @@ edgee:slingshot
 alanning:roles
 email
 meteorhacks:ssr
+brettle:accounts-anonymous
+brettle:accounts-login-state
+brettle:accounts-anonymous-auto

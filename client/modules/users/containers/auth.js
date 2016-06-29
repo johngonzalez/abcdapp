@@ -1,10 +1,14 @@
 export function authComposer({context}, onData) {
-  const {Meteor} = context();
-
-  onData(null, {
-    loggedIn: Boolean(Meteor.userId()),
-    loggingIn: Meteor.loggingIn()
-  });
+  const {Meteor, LoginState} = context();
+  const loggedIn = LoginState.loggedIn();
+  const signedUp = LoginState.signedUp();
+  const loggingIn = Meteor.loggingIn();
+  onData(null, {loggedIn, signedUp, loggingIn});
+    // loggedIn: Boolean(Meteor.userId()),
+    // loggedIn: LoginState.loggedIn(),
+    // signedUp: LoginState.signedUp(),
+    // loggingIn: Meteor.loggingIn()
+  // });
 }
 
 export function adminComposer({context}, onData) {

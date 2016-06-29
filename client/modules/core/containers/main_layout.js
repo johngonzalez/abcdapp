@@ -4,16 +4,16 @@ import MainLayout from '../components/main_layout';
 import {authComposer} from '../../../../client/modules/users/containers/auth';
 import redirectAccordingRole from '../libs/redirectAccordingRole';
 
-export const composer = ({context, content, mainRoleUser, loggedIn}, onData) => {
+export const composer = ({context, content, mainRoleUser, signedUp}, onData) => {
   const {FlowRouter, Meteor, Roles} = context();
-  if (loggedIn && FlowRouter.current().path === '/') {
+  if (signedUp && FlowRouter.current().path === '/') {
     redirectAccordingRole(FlowRouter, Meteor, Roles);
   }
   const nologging = content && content().props ? content().props.nologging : null;
   onData(null, {nologging});
 };
 export default composeAll(
-  composeWithTracker(authComposer),
   composeWithTracker(composer),
+  composeWithTracker(authComposer),
   useDeps()
 )(MainLayout);
