@@ -8,7 +8,7 @@ class Sessions extends React.Component {
       select: this.propTypes.func,
       currentQuestion: this.propTypes.object.isRequired,
       questionsCount: this.propTypes.number.isRequired,
-      classId: this.propTypes.string.isRequired
+      sessionId: this.propTypes.string.isRequired
     };
   }
   constructor(props) {
@@ -20,7 +20,7 @@ class Sessions extends React.Component {
     this.select(e);
   }
   render() {
-    const {questionsCount, currentQuestion, classId} = this.props;
+    const {questionsCount, currentQuestion, sessionId} = this.props;
     return (
       currentQuestion ?
         <div>
@@ -32,7 +32,7 @@ class Sessions extends React.Component {
                 onSelect={this.handleSelect}
               />
           </div>
-        <Question classId={classId} questionId={currentQuestion._id} />
+        <Question sessionId={sessionId} questionId={currentQuestion._id} />
       </div> :
       <p>No hay preguntas aún</p>
     );

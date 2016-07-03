@@ -6,7 +6,7 @@ class Response extends React.Component {
     return {
       select: this.propTypes.func,
       questionId: this.propTypes.string,
-      classId: this.propTypes.string,
+      sessionId: this.propTypes.string,
       lastResponse: this.propTypes.object
     };
   }
@@ -29,9 +29,9 @@ class Response extends React.Component {
   }
   selectResponse(e) {
     e.preventDefault();
-    const {questionId, classId} = this.props;
+    const {questionId, sessionId} = this.props;
     const responseId = parseInt(e.target.value, 10);
-    this.select(classId, questionId, responseId);
+    this.select(sessionId, questionId, responseId);
   }
   render() {
     const isSelected = this.isSelected.bind(this.props);

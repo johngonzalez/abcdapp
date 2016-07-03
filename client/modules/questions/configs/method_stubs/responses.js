@@ -2,9 +2,9 @@ import {check} from 'meteor/check';
 
 export default function ({Collections, Meteor}) {
   Meteor.methods({
-    'response.select'(_id, classId, questionId, responseId) {
+    'response.select'(_id, sessionId, questionId, responseId) {
       check(_id, String);
-      check(classId, String);
+      check(sessionId, String);
       check(questionId, String);
       check(responseId, Number);
       const owner = Meteor.userId();
@@ -13,7 +13,7 @@ export default function ({Collections, Meteor}) {
       }
       const saving = true;
       const createdAt = new Date();
-      const response = {_id, classId, questionId, responseId, createdAt, owner, saving};
+      const response = {_id, sessionId, questionId, responseId, createdAt, owner, saving};
       Collections.Responses.insert(response);
     }
   });

@@ -10,12 +10,13 @@ export const questionsList = function () {
 };
 
 export const questionsResponsesList = function () {
-  Meteor.publish('questionsResponses.list', function (classId) {
+  Meteor.publish('questionsResponses.list', function (classId, sessionId) {
     check(classId, String);
+    check(sessionId, String);
     const owner = this.userId;
     return [
       Questions.find({classId}),
-      Responses.find({classId, owner})
+      Responses.find({sessionId, owner})
     ];
   });
 };

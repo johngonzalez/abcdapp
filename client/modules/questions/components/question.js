@@ -2,15 +2,15 @@ import React from 'react';
 import {Panel} from 'react-bootstrap';
 import Responses from '../containers/responses';
 
-const Question = ({questionId, classId}) => (
+const Question = ({questionId, sessionId}) => (
   <Panel>
-    <Responses classId={classId} questionId={questionId} />
+    <Responses sessionId={sessionId} questionId={questionId} />
   </Panel>
 );
 
 Question.propTypes = {
   questionId: React.PropTypes.string.isRequired,
-  classId: React.PropTypes.string.isRequired
+  sessionId: React.PropTypes.string.isRequired
 };
 
 export default Question;

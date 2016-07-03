@@ -4,23 +4,23 @@ import Session from '../components/session.js';
 
 export const composer = ({context, clearSelection, sessionId}, onData) => {
   const {LocalState, Meteor, Collections} = context();
-  const _id = sessionId;
   // TODO: Check meteor_stubs to question.list publication
-  if (Meteor.subscribe('sessions.single', _id).ready()) {
-    const session = Collections.Sessions.findOne({_id});
+  if (Meteor.subscribe('sessions.single', sessionId).ready()) {
+    const session = Collections.Sessions.findOne(sessionId);
     if (session) {
       const classId = session.classId;
       if (Meteor.subscribe('classes.single', classId).ready()) {
         const classItem = Collections.Classes.findOne({_id: classId});
         if (classItem.isPublic || Meteor.userId()) {
-          if (Meteor.subscribe('questionsResponses.list', classId).ready()) {
+          if (Meteor.subscribe('questionsResponses.list', classId, sessionId).ready()) {
             // TODO: Not publish response key to any user
             const questions = Collections.Questions.find({classId}).fetch();
             const questionsCount = questions.length;
+            // TODO: Each time that is update current question is executed all?
             const currentQuestionSeq = LocalState.get('SELECT_QUESTION') || 0;
             // TODO: Change underscore by lodash or rambda
             const currentQuestion = _.findWhere(questions, {questionSeq: currentQuestionSeq});
-            onData(null, {classId, questionsCount, currentQuestion});
+            onData(null, {questionsCount, currentQuestion});
           } else {
             onData(null, null);
           }
