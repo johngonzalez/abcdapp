@@ -1,7 +1,8 @@
 import React from 'react';
-import {Pagination} from 'react-bootstrap';
+import {Pagination, Panel} from 'react-bootstrap';
 import Question from '../components/question';
 import LoginUser from '../../users/containers/loginUser';
+import SessionRegister from '../containers/sessionRegister';
 
 class Sessions extends React.Component {
   static propTypes() {
@@ -38,10 +39,17 @@ class Sessions extends React.Component {
             <Question sessionId={sessionId} questionId={currentQuestion._id} />
           </div> :
           <p>No hay preguntas aún</p> :
-        <div>
-          <p>{error}</p>
-          <LoginUser />
-        </div>
+        error.type === 'SESSION_PRIVATE' ?
+          <div>
+            <p style={{color: 'red'}}>{error.message}</p>
+            <Panel><LoginUser /></Panel>
+          </div> :
+          error.type === 'SESSION_NON_EXISTS' ?
+          <div>
+            <p style={{color: 'red'}}>{error.message}</p>
+            <SessionRegister />
+          </div> :
+          null
     );
   }
 }
