@@ -1,11 +1,11 @@
+import {Random} from 'meteor/random';
+
 export default {
-  select({Meteor, LocalState}, sessionId, questionId, responseId) {
+  select({Meteor, LocalState}, _id = Random.id(), sessionId, questionId, selected) {
 
-    // TODO: Handle error if questionId and responseId are not set
+    // TODO: Handle error if questionId and selected are not set
     LocalState.set('SELECT_RESPONSE_ERROR', null);
-
-    const _id = Meteor.uuid();
-    Meteor.call('response.select', _id, sessionId, questionId, responseId, (err) => {
+    Meteor.call('response.select', _id, sessionId, questionId, selected, (err) => {
       if (err) {
         return LocalState.set('SELECT_RESPONSE_ERROR', err.message);
       }

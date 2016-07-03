@@ -1,6 +1,7 @@
 import React from 'react';
 import {Pagination} from 'react-bootstrap';
 import Question from '../components/question';
+import LoginUser from '../../users/containers/loginUser';
 
 class Sessions extends React.Component {
   static propTypes() {
@@ -8,7 +9,8 @@ class Sessions extends React.Component {
       select: this.propTypes.func,
       currentQuestion: this.propTypes.object.isRequired,
       questionsCount: this.propTypes.number.isRequired,
-      sessionId: this.propTypes.string.isRequired
+      sessionId: this.propTypes.string.isRequired,
+      error: this.propTypes.string
     };
   }
   constructor(props) {
@@ -20,21 +22,26 @@ class Sessions extends React.Component {
     this.select(e);
   }
   render() {
-    const {questionsCount, currentQuestion, sessionId} = this.props;
+    const {error, questionsCount, currentQuestion, sessionId} = this.props;
     return (
-      currentQuestion ?
+      !error ?
+        currentQuestion ?
+          <div>
+            <div className="text-center">
+                <Pagination
+                  bsSize="big"
+                  activePage={currentQuestion.questionSeq + 1}
+                  items={questionsCount}
+                  onSelect={this.handleSelect}
+                />
+            </div>
+            <Question sessionId={sessionId} questionId={currentQuestion._id} />
+          </div> :
+          <p>No hay preguntas aún</p> :
         <div>
-          <div className="text-center">
-              <Pagination
-                bsSize="big"
-                activePage={currentQuestion.questionSeq + 1}
-                items={questionsCount}
-                onSelect={this.handleSelect}
-              />
-          </div>
-        <Question sessionId={sessionId} questionId={currentQuestion._id} />
-      </div> :
-      <p>No hay preguntas aún</p>
+          <p>{error}</p>
+          <LoginUser />
+        </div>
     );
   }
 }

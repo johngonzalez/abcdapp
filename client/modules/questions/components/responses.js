@@ -12,30 +12,27 @@ class Response extends React.Component {
   }
   constructor(props) {
     super(props);
-    this.selectResponse = this.selectResponse.bind(this);
     this.select = props.select;
-    this.questionId = props.questionId;
+    this.isSelected = this.isSelected.bind(this);
+    this.isSaving = this.isSaving.bind(this);
+    this.selectResponse = this.selectResponse.bind(this);
   }
   isSelected(i) {
-    const {lastResponse} = this;
-    const id = lastResponse ? lastResponse.responseId : null;
-    return id !== null && id === i;
+    const {selected: selected} = this.props.lastResponse || {};
+    return selected !== undefined && selected === i;
   }
   isSaving(i) {
-    const {lastResponse} = this;
-    const id = lastResponse ? lastResponse.responseId : null;
-    const saving = lastResponse ? lastResponse.saving : null;
-    return id !== null && id === i && saving;
+    const {selected: selected, saving: saving} = this.props.lastResponse || {};
+    return selected !== undefined && selected === i && saving;
   }
   selectResponse(e) {
     e.preventDefault();
-    const {questionId, sessionId} = this.props;
-    const responseId = parseInt(e.target.value, 10);
-    this.select(sessionId, questionId, responseId);
+    const {_id: _id} = this.props.lastResponse || {};
+    const {sessionId, questionId} = this.props;
+    const selected = parseInt(e.target.value, 10);
+    this.select(_id, sessionId, questionId, selected);
   }
   render() {
-    const isSelected = this.isSelected.bind(this.props);
-    const isSaving = this.isSaving.bind(this.props);
     return (
       <div>
         {
@@ -43,14 +40,14 @@ class Response extends React.Component {
             <Button
               key={i}
               bsSize="large"
-              bsStyle={isSelected(i) ? 'primary' : 'default'}
+              bsStyle={this.isSelected(i) ? 'primary' : 'default'}
               block
               value={i}
               onClick={this.selectResponse}
             >
               <span>
                 {
-                  isSaving(i) ?
+                  this.isSaving(i) ?
                   ' saving...' :
                   String.fromCharCode(97 + i)
                 }
