@@ -47,9 +47,9 @@ export default function () {
 
         SSR.compileTemplate('htmlEmail', Assets.getText('invitationEmail.html'));
 
+        const domain = Meteor.isProduction ? Meteor.settings.DOMAIN_URL : 'localhost:3000';
         const emailData = {
-          url: `http://localhost:3000/invite/${token}`,
-
+          url: `http://${domain}/invite/${token}`,
         };
         // Let other method calls from the same client start running,
         // without waiting for the email sending to complete.
