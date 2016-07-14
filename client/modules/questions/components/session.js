@@ -1,57 +1,29 @@
 import React from 'react';
-import {Pagination, Panel} from 'react-bootstrap';
-import Question from '../components/question';
+import {Panel} from 'react-bootstrap';
 import LoginUser from '../../users/containers/loginUser';
 import SessionRegister from '../containers/sessionRegister';
+import QuestionsTest from '../containers/questionsTest';
 
-class Sessions extends React.Component {
-  static propTypes() {
-    return {
-      select: this.propTypes.func,
-      currentQuestion: this.propTypes.object.isRequired,
-      questionsCount: this.propTypes.number.isRequired,
-      sessionId: this.propTypes.string.isRequired,
-      error: this.propTypes.string
-    };
-  }
-  constructor(props) {
-    super(props);
-    this.select = props.select;
-    this.handleSelect = this.handleSelect.bind(this);
-  }
-  handleSelect(e) {
-    this.select(e);
-  }
-  render() {
-    const {error, questionsCount, currentQuestion, sessionId} = this.props;
-    return (
-      !error ?
-        currentQuestion ?
-          <div>
-            <div className="text-center">
-                <Pagination
-                  bsSize="big"
-                  activePage={currentQuestion.questionSeq + 1}
-                  items={questionsCount}
-                  onSelect={this.handleSelect}
-                />
-            </div>
-            <Question sessionId={sessionId} questionId={currentQuestion._id} />
-          </div> :
-          <p>No hay preguntas aún</p> :
-        error.type === 'SESSION_PRIVATE' ?
-          <div>
-            <p style={{color: 'red'}}>{error.message}</p>
-            <Panel><LoginUser /></Panel>
-          </div> :
-          error.type === 'SESSION_NON_EXISTS' ?
-          <div>
-            <p style={{color: 'red'}}>{error.message}</p>
-            <SessionRegister />
-          </div> :
-          null
-    );
-  }
-}
+const SessionItem = ({error, sessionId, classId}) => (
+  !error ?
+    <QuestionsTest sessionId={sessionId} classId={classId} /> :
+    error.type === 'SESSION_PRIVATE' ?
+      <div>
+        <p style={{color: 'red'}}>{error.message}</p>
+        <Panel><LoginUser /></Panel>
+      </div> :
+      error.type === 'SESSION_NON_EXISTS' ?
+      <div>
+        <p style={{color: 'red'}}>{error.message}</p>
+        <Panel><SessionRegister /></Panel>
+      </div> :
+      <p style={{color: 'red'}}>Oops! error desconocido</p>
+);
 
-export default Sessions;
+SessionItem.propTypes = {
+  error: React.PropTypes.object,
+  sessionId: React.PropTypes.string,
+  classId: React.PropTypes.string,
+};
+
+export default SessionItem;
