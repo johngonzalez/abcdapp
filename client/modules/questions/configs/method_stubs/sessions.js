@@ -9,6 +9,11 @@ export default function ({Collections, Meteor}) {
       const saving = true;
       const session = {_id, classId, createdAt, saving};
       Collections.Sessions.insert(session);
+    },
+    'session.finish'(sessionId) {
+      check(sessionId, String);
+      const modifier = { $set: { updating: true, isFinished: true } };
+      Collections.Sessions.update(sessionId, modifier);
     }
   });
 }

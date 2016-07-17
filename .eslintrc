@@ -15,6 +15,12 @@
     "plugin:meteor/recommended"
   ],
 
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+
   "ecmaFeatures": {
     "arrowFunctions": true,
     "binaryLiterals": true,

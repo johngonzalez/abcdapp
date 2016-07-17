@@ -5,6 +5,7 @@ import classItemTitle from './classItemTitle';
 import newSession from './newSession';
 import sessionRegister from './sessionRegister';
 import questionsTest from './questionsTest';
+import sessionFinish from './sessionFinish';
 
 export default {
   responses,
@@ -13,5 +14,6 @@ export default {
   classItemTitle,
   newSession,
   sessionRegister,
-  questionsTest
+  questionsTest,
+  sessionFinish
 };

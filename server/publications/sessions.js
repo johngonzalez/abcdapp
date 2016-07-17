@@ -23,4 +23,12 @@ export default function () {
       ]
     };
   });
+  Meteor.publish('session.unfinished', function (classId) {
+    check(classId, String);
+    // TODO: Add teacher to selector
+    const selector = {classId, isFinished: null};
+    const options = { sort: { createdAt: -1 }, limit: 1 };
+    Meteor._sleepForMs(5000);
+    return Sessions.find(selector, options);
+  });
 }
