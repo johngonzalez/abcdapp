@@ -1,6 +1,17 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 import Session from '../components/session.js';
 
+const errors = [
+  {
+    type: 'SESSION_PRIVATE',
+    message: 'Esta clase es privada, ingresa con tu cuenta'
+  },
+  {
+    type: 'SESSION_NON_EXISTS',
+    message: 'No se encuentra la clase :( intenta ingresar otro código'
+  }
+];
+
 export const composer = ({context, sessionId}, onData) => {
   const {Meteor, Collections, LoginState} = context();
   if (Meteor.subscribe('sessions.classes.composite', sessionId).ready()) {
@@ -11,19 +22,13 @@ export const composer = ({context, sessionId}, onData) => {
         const classId = classItem._id;
         onData(null, {sessionId, classId});
       } else {
-        const error = {
-          type: 'SESSION_PRIVATE',
-          message: 'Esta clase es privada, ingresa con tu cuenta'
-        };
-        onData(null, {error});
+        onData(null, {error: errors[0]});
       }
     } else {
-      const error = {
-        type: 'SESSION_NON_EXISTS',
-        message: 'No se encuentra la clase :( intenta ingresar otro código'
-      };
-      onData(null, {error});
+      onData(null, {error: errors[1]});
     }
+  } else {
+    onData();
   }
 };
 

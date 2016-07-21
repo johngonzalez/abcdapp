@@ -8,7 +8,11 @@ export default function () {
 
     const _session = () => {
       const options = { fields: { _id: 1, classId: 1 }, limit: 1 };
-      return Sessions.find(sessionId, options);
+      const session = Sessions.find(sessionId, options);
+      if (session.fetch().length === 0) {
+        return;
+      }
+      return session;
     };
 
     const _classes = (session) => {

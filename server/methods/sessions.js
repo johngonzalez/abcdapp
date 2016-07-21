@@ -20,16 +20,16 @@ export default function () {
       Sessions.insert(session);
       return code;
     },
-    'sessionToken.insert'(code) {
+    'sessionCode.insert'(code) {
       check(code, String);
       const session = Sessions.findOne({code});
-      if (session) {
-        return session._id;
+      if (!session) {
+        throw new Meteor.Error(
+          'sessionCode.insert.sessionNoExists',
+          'Session does not exits',
+          'Session does not exits. Try other session');
       }
-      throw new Meteor.Error(
-        'sessionToken.insert.sessionNoExists',
-        'Session does not exits',
-        'Session does not exits. Try other session');
+      return session._id;
     },
     'session.finish'(sessionId) {
       check(sessionId, String);
