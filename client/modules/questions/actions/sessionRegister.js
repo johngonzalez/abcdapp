@@ -1,14 +1,16 @@
 export default {
-  insert({Meteor, FlowRouter, LocalState}, token) {
-    Meteor.call('sessionToken.insert', token, (err, sessionId) => {
+  insert({Meteor, FlowRouter, LocalState}, code) {
+    LocalState.set('CODE_REGISTER_ERROR', null);
+    Meteor.call('sessionCode.insert', code, (err, sessionId) => {
       if (err) {
-        LocalState.set('TOKEN_REGISTER_ERROR',err.message);
+        LocalState.set('CODE_REGISTER_ERROR', err.message);
       } else {
+        LocalState.set('CODE_REGISTER_ERROR', null);
         FlowRouter.go(`/session/${sessionId}`);
       }
     });
   },
   clearState({LocalState}) {
-    return LocalState.set('TOKEN_REGISTER_ERROR');
+    return LocalState.set('CODE_REGISTER_ERROR', null);
   }
 };
