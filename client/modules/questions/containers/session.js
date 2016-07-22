@@ -20,7 +20,7 @@ export const composer = ({context, sessionId}, onData) => {
       const classItem = Collections.Classes.findOne(session.classId);
       if (classItem && classItem.isPublic || LoginState.signedUp()) {
         const classId = classItem._id;
-        onData(null, {sessionId, classId});
+        onData(null, {session, classId});
       } else {
         onData(null, {error: errors[0]});
       }

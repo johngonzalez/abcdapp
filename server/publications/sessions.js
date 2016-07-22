@@ -7,7 +7,7 @@ export default function () {
     check(sessionId, String);
 
     const _session = () => {
-      const options = { fields: { _id: 1, classId: 1 }, limit: 1 };
+      const options = { fields: { _id: 1, classId: 1, isFinished: 1 }, limit: 1 };
       const session = Sessions.find(sessionId, options);
       if (session.fetch().length === 0) {
         return;

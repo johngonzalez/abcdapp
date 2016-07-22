@@ -24,15 +24,19 @@ RenderError.propTypes = {
   message: React.PropTypes.string.isRequired
 };
 
-const SessionItem = ({error, sessionId, classId}) => (
+const SessionItem = ({error, session, classId}) => (
   error ?
     <RenderError type={error.type} message={error.message} /> :
-    <QuestionsTest sessionId={sessionId} classId={classId} />
+    <QuestionsTest
+      sessionId={session._id}
+      classId={classId}
+      isFinished={session.isFinished}
+    />
 );
 
 SessionItem.propTypes = {
   error: React.PropTypes.object,
-  sessionId: React.PropTypes.string,
+  session: React.PropTypes.object,
   classId: React.PropTypes.string,
 };
 

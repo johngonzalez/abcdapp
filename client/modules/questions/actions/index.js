@@ -4,7 +4,7 @@ import newQuestion from './newQuestion';
 import classItemTitle from './classItemTitle';
 import newSession from './newSession';
 import sessionRegister from './sessionRegister';
-import questionsTest from './questionsTest';
+import questionsSelect from './questionsSelect';
 import sessionFinish from './sessionFinish';
 
 export default {
@@ -14,6 +14,6 @@ export default {
   classItemTitle,
   newSession,
   sessionRegister,
-  questionsTest,
+  questionsSelect,
   sessionFinish
 };

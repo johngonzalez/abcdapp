@@ -1,32 +1,23 @@
 import React from 'react';
-import {Pagination} from 'react-bootstrap';
-import Question from '../components/question';
+import Question from '../containers/question';
+import QuestionsSelect from '../containers/questionsSelect';
 
-const QuestionsTest = ({questionsCount, currentQuestion, sessionId, select}) => (
-  questionsCount ?
-    <div>
-      <div className="text-center">
-          <Pagination
-            bsSize="big"
-            activePage={currentQuestion.questionSeq + 1}
-            items={questionsCount}
-            onSelect={select}
-          />
-      </div>
+const QuestionsTest = ({sessionId, questions, isFinished}) => (
+  questions.length > 0 ?
+    <QuestionsSelect questions={questions}>
       {
-        currentQuestion && currentQuestion._id ?
-          <Question sessionId={sessionId} questionId={currentQuestion._id} /> :
-          <p style={{color: 'red'}}>Existe un problema con la pregunta :(</p>
+        isFinished ?
+        <p>La clase ha terminado! Proximamente aquí los resultados por pregunta</p> :
+        <Question sessionId={sessionId} />
       }
-    </div> :
+    </QuestionsSelect> :
     <p style={{color: 'red'}}>Aún no hay preguntas!</p>
 );
 
 QuestionsTest.propTypes = {
-  select: React.PropTypes.func.isRequired,
-  currentQuestion: React.PropTypes.object.isRequired,
-  questionsCount: React.PropTypes.number.isRequired,
   sessionId: React.PropTypes.string.isRequired,
+  questions: React.PropTypes.array.isRequired,
+  isFinished: React.PropTypes.bool
 };
 
 export default QuestionsTest;
