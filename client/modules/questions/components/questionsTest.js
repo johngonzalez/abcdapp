@@ -1,13 +1,14 @@
 import React from 'react';
 import Question from '../containers/question';
 import QuestionsSelect from '../containers/questionsSelect';
+import QuestionStats from '../../stats/containers/question';
 
 const QuestionsTest = ({sessionId, questions, isFinished}) => (
   questions.length > 0 ?
     <QuestionsSelect questions={questions}>
       {
         isFinished ?
-        <p>La clase ha terminado! Proximamente aquí los resultados por pregunta</p> :
+        <QuestionStats /> :
         <Question sessionId={sessionId} />
       }
     </QuestionsSelect> :

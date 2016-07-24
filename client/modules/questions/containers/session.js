@@ -14,7 +14,7 @@ const errors = [
 
 export const composer = ({context, sessionId}, onData) => {
   const {Meteor, Collections, LoginState} = context();
-  if (Meteor.subscribe('sessions.classes.composite', sessionId).ready()) {
+  if (Meteor.subscribe('sessions.single.composite', sessionId).ready()) {
     const session = Collections.Sessions.findOne(sessionId);
     if (session && session.classId) {
       const classItem = Collections.Classes.findOne(session.classId);
