@@ -29,6 +29,8 @@ export default function () {
           'Session does not exits',
           'Session does not exits. Try other session');
       }
+      // TODO: If class is private or user is not premium, not update
+      Sessions.update(session._id, { $addToSet: {students: this.userId }});
       return session._id;
     },
     'session.finish'(sessionId) {
