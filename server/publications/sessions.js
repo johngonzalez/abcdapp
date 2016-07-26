@@ -6,7 +6,7 @@ export default function () {
   Meteor.publishComposite('sessions.single.composite', function (sessionId) {
     check(sessionId, String);
     const _session = () => {
-      const options = { fields: { _id: 1, classId: 1, isFinished: 1 }, limit: 1 };
+      const options = { fields: { _id: 1, classId: 1, isFinished: 1, students: 1 }, limit: 1 };
       const session = Sessions.find(sessionId, options);
       if (session.fetch().length === 0) {
         return;
@@ -35,12 +35,21 @@ export default function () {
       return Responses.find(selector, { fields: { createdAt: 0 } });
     };
 
+    const _users = (session) => {
+      if (session.isFinished && session.students && session.students.length > 0) {
+        const fields = { _id: 1, displayName: 1 };
+        return Meteor.users.find({ _id: { $in: session.students } }, { fields });
+      }
+      return;
+    };
+
     return {
       find: _session,
       children: [
         { find: _classes },
         { find: _questions },
-        { find: _responses }
+        { find: _responses },
+        { find: _users }
       ]
     };
   });
