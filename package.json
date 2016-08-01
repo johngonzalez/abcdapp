@@ -36,10 +36,11 @@
     "domready": "^1.0.8",
     "mantra-core": "^1.5.0",
     "moment": "^2.13.0",
+    "ramda": "^0.21.0",
     "react": "^15.0.0",
     "react-bootstrap": "^0.29.0",
     "react-dom": "^15.0.0",
-    "react-mounter": "^1.2.0",
+    "react-mounter": "^1.2.0"
   },
   "private": true
 }
