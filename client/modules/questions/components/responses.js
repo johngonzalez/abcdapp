@@ -4,9 +4,10 @@ import {Button} from 'react-bootstrap';
 class Response extends React.Component {
   static propTypes() {
     return {
-      select: this.propTypes.func,
-      questionId: this.propTypes.string,
-      sessionId: this.propTypes.string,
+      error: this.propTypes.string,
+      select: this.propTypes.func.isRequired,
+      questionId: this.propTypes.string.isRequired,
+      sessionId: this.propTypes.string.isRequired,
       lastResponse: this.propTypes.object
     };
   }
@@ -33,8 +34,10 @@ class Response extends React.Component {
     this.select(_id, sessionId, questionId, selected);
   }
   render() {
+    const {error} = this.props;
     return (
       <div>
+        <p style={{color: 'red'}}>{error}</p> { /* TODO: If isn't auth redirect to login */}
         {
           [ 0, 1, 2, 3 ].map( i => (
             <Button

@@ -1,22 +1,15 @@
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 import NewSession from '../components/newSession';
 
-export const composer = ({context, clearNewSessionState}, onData) => {
-  const {LocalState} = context();
+export const composer = ({LocalState, clearState}, onData) => {
   const error = LocalState.get('CREATE_SESSION_ERROR');
-  const code = LocalState.get('SESSION_CODE');
-  const pushedCreateSession = LocalState.get('PUSHED_CREATE_SESSION');
-  onData(null, {code, error, pushedCreateSession});
-
-  // clearErrors when unmounting the component
-  return clearNewSessionState;
+  onData(null, {error});
+  return clearState;
 };
 
-export const depsMapper = (context, actions) => ({
-  clearNewQuestionState: actions.newSession.clearNewQuestionState,
-  create: actions.newSession.create,
-  context: () => context
-});
+export const depsMapper = (context, actions) => (
+  {...context, ...actions.newSession}
+);
 
 export default composeAll(
   composeWithTracker(composer),

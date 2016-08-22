@@ -20,15 +20,30 @@ export default function () {
       Sessions.insert(session);
       return code;
     },
-    'sessionToken.insert'(code) {
+    'sessionCode.insert'(code) {
       check(code, String);
       const session = Sessions.findOne({code});
-      if (session) {
-        return session._id;
+      if (!session) {
+        throw new Meteor.Error(
+          'sessionCode.insert.sessionNoExists',
+          'Session does not exits',
+          'Session does not exits. Try other session');
       }
-      throw Meteor.Error('sessionToken.insert.sessionNoExists',
-      'Session does not exits',
-      'Session does not exits. Try other session');
+      // TODO: If class is private or user is not premium, not update
+      Sessions.update(session._id, { $addToSet: {students: this.userId }});
+      return session._id;
+    },
+    'session.finish'(sessionId) {
+      check(sessionId, String);
+      Meteor._sleepForMs(5000);
+      const session = Sessions.update(sessionId, { $set: {isFinished: true} });
+      if (!session) {
+        throw new Meteor.Error(
+          'session.finish.sessionNotFound',
+          'session is not found',
+          'Session is not found. Maybe this session does not exists'
+        );
+      }
     }
   });
 }
