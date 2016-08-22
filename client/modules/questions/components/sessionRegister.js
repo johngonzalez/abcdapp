@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom';
 class SessionRegisterCode extends React.Component {
   static propTypes() {
     return {
-      insert: React.propTypes.func.isrequired
+      insert: React.propTypes.func.isrequired,
+      error: React.propTypes.string
     };
   }
   constructor(props) {
@@ -20,8 +21,10 @@ class SessionRegisterCode extends React.Component {
     this.insert(find(code).value);
   }
   render() {
+    const {error} = this.props;
     return (
       <form>
+        {error ? <p style={{color: 'red'}}>{error}</p> : null}
         <FormGroup>
           <ControlLabel>
             Ingresa el código de la sesión de clase dada por tu profesor
