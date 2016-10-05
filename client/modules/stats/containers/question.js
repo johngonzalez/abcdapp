@@ -31,9 +31,7 @@ export const composer = ({context, sessionId, questionId}, onData) => {
   );
 
   const responsesWithUsers = merge(users, responses);
-  console.log(responsesWithUsers);
   const ownSelected = findByAndProp(responsesWithUsers);
-  console.log(ownSelected);
   const responsesGroup = groupSelected(responsesWithUsers);
 
   onData(null, {question, ownSelected, responsesGroup});

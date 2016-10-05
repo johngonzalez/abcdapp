@@ -6,6 +6,7 @@ import newSession from './newSession';
 import sessionRegister from './sessionRegister';
 import questionsSelect from './questionsSelect';
 import sessionFinish from './sessionFinish';
+import questionsTest from './questionsTest';
 
 export default {
   responses,
@@ -15,5 +16,6 @@ export default {
   newSession,
   sessionRegister,
   questionsSelect,
-  sessionFinish
+  sessionFinish,
+  questionsTest
 };
