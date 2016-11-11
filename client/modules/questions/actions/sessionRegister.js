@@ -1,3 +1,5 @@
+import {AccountsAnonymous} from 'meteor/brettle:accounts-anonymous';
+
 export default {
   insert({Meteor, FlowRouter, LocalState}, code) {
     LocalState.set('CODE_REGISTER_ERROR', null);
@@ -6,6 +8,11 @@ export default {
         LocalState.set('CODE_REGISTER_ERROR', err.message);
       } else {
         LocalState.set('CODE_REGISTER_ERROR', null);
+        AccountsAnonymous.login((guestErr) => {
+          if (guestErr) {
+            LocalState.set('USER_GUEST_ERROR', guestErr.message);
+          }
+        });
         FlowRouter.go(`/session/${sessionId}`);
       }
     });
