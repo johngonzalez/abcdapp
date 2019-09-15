@@ -9,6 +9,7 @@ import SessionRegister from '../questions/containers/sessionRegister';
 import TeachersList from '../users/containers/teachersInvitationsNav';
 import MainLayout from './containers/main_layout.js';
 import redirectAccordingRole from './libs/redirectAccordingRole';
+import StudentsList from '../users/containers/insertStudents';
 
 export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
   const MainLayoutCtx = injectDeps(MainLayout);
@@ -79,6 +80,14 @@ export default function (injectDeps, {FlowRouter, Meteor, Roles}) {
     action() {
       mount(MainLayoutCtx, {
         content: () => (<SessionRegister />)
+      });
+    }
+  });
+  FlowRouter.route('/students', {
+    name: 'students.list',
+    action() {
+      mount(MainLayoutCtx, {
+        content: () => (<StudentsList />)
       });
     }
   });

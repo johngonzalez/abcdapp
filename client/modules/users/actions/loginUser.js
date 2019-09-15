@@ -15,6 +15,8 @@ export default {
         LocalState.set('LOGIN_ERROR', err.message);
       } else {
         LocalState.set('LOGIN_ERROR', null);
+        console.log(Meteor.user());
+        Meteor.call('users.firstLogin');
       }
     });
   },

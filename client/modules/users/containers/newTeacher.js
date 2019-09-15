@@ -4,8 +4,9 @@ import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 export const composer = ({context, clearNewTeacherState}, onData) => {
   const {LocalState} = context();
   const showModal = LocalState.get('SHOW_MODAL');
-  const error = LocalState.get('SEND_INVITATION_ERROR');
-  onData(null, {showModal, error});
+  const errorForm = LocalState.get('FORM_INVITATION_ERROR');
+  const errorServer = LocalState.get('SEND_INVITATION_ERROR');
+  onData(null, {showModal, errorForm, errorServer});
 
   // clearErrors when unmounting the component
   return clearNewTeacherState;

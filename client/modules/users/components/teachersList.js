@@ -1,24 +1,34 @@
 import React from 'react';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import NewTeacher from '../containers/newTeacher';
 
-const TeachersList = ({teachers}) => (
+const TeachersList = ({users, userRole}) => (
   <div>
     <ListGroup>
       {
-        teachers && teachers.length > 0 ?
-        teachers.map((t) => (
+        users && users.length > 0 ?
+        users.map((t) => (
           <ListGroupItem key={t._id}>
             {t.emails[0].address}
+            {t.verificationCode ? ` - ${t.verificationCode}` : null}
           </ListGroupItem>
         )) :
-        <p>No hay profesores en la lista</p>
+        <p>
+        {
+          userRole === 'teacher' ?
+          'No hay profesores en la lista' :
+          'No hay estudiantes en la lista'
+        }
+        </p>
       }
     </ListGroup>
+    <NewTeacher userRole={userRole} />
   </div>
 );
 
 TeachersList.propTypes = {
-  teachers: React.PropTypes.array,
+  users: React.PropTypes.array,
+  userRole: React.PropTypes.string,
 };
 
 export default TeachersList;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Nav, NavItem} from 'react-bootstrap';
-import TeachersList from '../containers/teachersList';
+import UsersList from '../containers/teachersList';
 import InvitationsList from '../containers/invitationsList';
 
 const TeachersInvitationsNav = ({keyTab, onSelect, isAdmin}) => (
@@ -10,10 +10,15 @@ const TeachersInvitationsNav = ({keyTab, onSelect, isAdmin}) => (
       <div>
         <Nav bsStyle="tabs" activeKey={keyTab} onSelect={onSelect}>
           <NavItem eventKey={1} >Profesores</NavItem>
-          <NavItem eventKey={2} >Invitaciones</NavItem>
+          <NavItem eventKey={2} >Estudiantes</NavItem>
+          <NavItem eventKey={3} >Invitaciones</NavItem>
         </Nav>
         <br />
-        {keyTab === 1 ? <TeachersList /> : <InvitationsList />}
+        {
+          keyTab === 1 ? <UsersList userRole="teacher" /> :
+          keyTab === 2 ? <UsersList userRole="student" /> :
+          <InvitationsList />
+        }
       </div> :
       <div><p>Only admin can be here!</p></div>
     }

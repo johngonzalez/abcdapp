@@ -1,17 +1,17 @@
 import TeachersList from '../components/teachersList';
 import {useDeps, composeWithTracker, composeAll} from 'mantra-core';
 
-export const composer = ({context}, onData) => {
+export const composer = ({context, userRole}, onData) => {
   const {Meteor} = context();
-  if (Meteor.subscribe('teachers.list').ready()) {
+  if (Meteor.subscribe('users.list', userRole).ready()) {
 
-    const teachers = Meteor.users.find({roles: 'teacher'}).fetch();
-    onData(null, {teachers});
+    const users = Meteor.users.find({roles: userRole}).fetch();
+    onData(null, {users});
 
   } else {
-    const teachers = Meteor.users.find({roles: 'teacher'}).fetch();
-    if (teachers) {
-      onData(null, {teachers});
+    const users = Meteor.users.find({roles: userRole}).fetch();
+    if (users) {
+      onData(null, {users});
     } else {
       onData();
     }
